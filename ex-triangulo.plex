@@ -1,0 +1,35 @@
+double[][] data = { {0.00,1.00},
+{-1.00,0.00},
+{1.00,0.00},
+{5.00,0.00} };
+
+
+pdata = Plex.EuclideanArrayData(data);
+
+delta = 0.001;
+max_d = 2;
+max_dist = 6;
+
+rips = Plex.RipsStream(delta, max_d, max_dist, pdata);
+
+intervals = Plex.Persistence().computeIntervals(rips);
+
+Plex.plot(intervals, "Barcode plot", max_dist);
+
+s1 = Plex.makeExplicit(rips);
+
+cells = s1.dump(1).C(); // dump 1-simplices
+
+print("These are the 1-simplices:");
+
+for (int i = 0; i < cells.length; i++) {
+	print(cells[i]);
+}
+
+print("These are the 2-simplices:");
+
+cells = s1.dump(2).C(); // dump 2-simplices
+
+for (int i = 0; i < cells.length; i++) {
+	print(cells[i]);
+}
